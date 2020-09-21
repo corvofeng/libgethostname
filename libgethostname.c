@@ -56,6 +56,8 @@ int gethostname(char *__name, size_t __len) {
         printf("Can't get fake hostname, return real host\n");
         return (*libc_gethostname)(__name, __len);
     }
-    strncpy(__name, s, min(strlen(s), __len));
+    int _len = min(strlen(s), __len);
+    strncpy(__name, s, _len);
+    __name[_len] = '\0';
     return 0;
 }
